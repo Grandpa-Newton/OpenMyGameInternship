@@ -13,27 +13,67 @@ namespace App.Scripts.Scenes.SceneFillwords.Features.ProviderLevel
 
         private string dictionaryFilePath = Path.Combine("Fillwords", "words_list");
 
-        private static List<int> validIndexes; // список с индексами валидных уровней
+        private static List<int> validIndexes = new List<int>(); // список с индексами валидных уровней
 
 
         public GridFillWords LoadModel(int index)
         {
+            int numberOfValidLevels = 1;
+
+            int numberOfExploredLevels = 1;
+
             GridFillWords model;
 
-            int startIndex = index; // индекс, переданный в качестве параметра
+            do
+            {
+                model = GetLevel(numberOfExploredLevels);
+                if(model != null)
+                {
+                    numberOfValidLevels++;
+                }
+                numberOfExploredLevels++; // temp = 2, index = 2
+            } 
+            while (numberOfValidLevels <= index);
 
-            if (index == 1) // инициализая списка
+            return model;
+
+         //   int startIndex = index; // индекс, переданный в качестве параметра
+
+            if(index-1 < validIndexes.Count)
+            {
+                return GetLevel(validIndexes[index - 1]);
+            }
+            else if(validIndexes.Count > 0)
+            {
+                index = validIndexes.Max() + 1;
+            }
+            else
+            {
+                
+            }
+
+            model = GetLevel(index);
+
+            /*while(validIndexes.Count < startIndex)
+            {
+                index++;
+                model = GetLevel(index);
+            }*/
+            
+
+
+          /*  if (index == 1) // инициализация списка
             {
                 validIndexes = new List<int>();
-            }
-            if (index - 1 < validIndexes.Count) // если в списке находится меньше, чем текущий индекс, значений
+            }*/
+            
+          /*  if (index - 1 < validIndexes.Count) // если в списке находится больше, чем текущий индекс, значений
             {
                 return GetLevel(validIndexes[index - 1]);
             }
             else if (validIndexes.Count > 0) // если список не пустой
             {
                 index = validIndexes.Max() + 1;
-
             }
 
             model = GetLevel(index);
@@ -42,7 +82,7 @@ namespace App.Scripts.Scenes.SceneFillwords.Features.ProviderLevel
             {
                 index++;
                 model = GetLevel(index);
-            }
+            }*/
 
             return model;
         }
@@ -87,7 +127,7 @@ namespace App.Scripts.Scenes.SceneFillwords.Features.ProviderLevel
                 {
                     try
                     {
-                        charsGrid.Add(currentLetters[j], new CharGridModel(currentWord[j])); 
+                        charsGrid.Add(currentLetters[j], new CharGridModel(currentWord[j]));
                     }
                     catch
                     {
