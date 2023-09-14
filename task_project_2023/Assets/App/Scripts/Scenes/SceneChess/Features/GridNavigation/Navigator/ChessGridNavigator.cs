@@ -14,7 +14,7 @@ namespace App.Scripts.Scenes.SceneChess.Features.GridNavigation.Navigator
         public List<Vector2Int> FindPath(ChessUnitType unit, Vector2Int from, Vector2Int to, ChessGrid grid)
         {
             Queue<Node> queue = new Queue<Node>();
-            
+
             List<Node> exploredList = new List<Node>(); // список рассмотренных клеток
 
             nodeList = new List<List<Node>>();
@@ -176,7 +176,7 @@ namespace App.Scripts.Scenes.SceneChess.Features.GridNavigation.Navigator
             {
                 Vector2Int nextPosition = new Vector2Int(currentNode.Position.x + directionX[i], currentNode.Position.y + directionY[i]);
 
-                if(nextPosition.x >= 0 && nextPosition.x < gridSize.x && nextPosition.y >= 0 && nextPosition.y < gridSize.y &&
+                if (nextPosition.x >= 0 && nextPosition.x < gridSize.x && nextPosition.y >= 0 && nextPosition.y < gridSize.y &&
                     nodeList[nextPosition.y][nextPosition.x].GetAvailability())
                 {
                     neighbors.Add(nodeList[nextPosition.y][nextPosition.x]);

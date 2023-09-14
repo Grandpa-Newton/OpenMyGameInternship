@@ -15,24 +15,24 @@ namespace App.Scripts.Scenes.SceneFillwords.Features.ProviderLevel
 
         public GridFillWords LoadModel(int index)
         {
-                int numberOfValidLevels = 1; // количество просмотренных валидных уровней
+            int numberOfValidLevels = 1; // количество просмотренных валидных уровней
 
-                int numberOfExploredLevels = 1; // количество просмотренных всего уровней
+            int numberOfExploredLevels = 1; // количество просмотренных всего уровней
 
-                GridFillWords model;
+            GridFillWords model;
 
-                do
+            do
+            {
+                model = GetLevel(numberOfExploredLevels);
+                if (model != null)
                 {
-                    model = GetLevel(numberOfExploredLevels);
-                    if(model != null)
-                    {
-                        numberOfValidLevels++;
-                    }
-                    numberOfExploredLevels++;
-                } 
-                while (numberOfValidLevels <= index);
+                    numberOfValidLevels++;
+                }
+                numberOfExploredLevels++;
+            }
+            while (numberOfValidLevels <= index);
 
-                return model;
+            return model;
         }
 
         private GridFillWords GetLevel(int index)
@@ -42,6 +42,7 @@ namespace App.Scripts.Scenes.SceneFillwords.Features.ProviderLevel
             try
             {
                 currentLevel = Resources.Load<TextAsset>(levelFilePath).text.Split("\r\n").Skip(index - 1).First().Split(' ');
+                Debug.Log(Resources.Load<TextAsset>(levelFilePath).text);
             }
             catch
             {

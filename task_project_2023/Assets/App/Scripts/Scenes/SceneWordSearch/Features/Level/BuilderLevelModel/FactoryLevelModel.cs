@@ -22,11 +22,11 @@ namespace App.Scripts.Scenes.SceneWordSearch.Features.Level.BuilderLevelModel
         {
             List<char> charList = new List<char>();
 
-            List<char> comparingList; 
+            List<char> comparingList;
 
             char[] currentWord;
 
-            foreach(var word in words)
+            foreach (var word in words)
             {
                 currentWord = word.ToCharArray();
 
@@ -34,7 +34,7 @@ namespace App.Scripts.Scenes.SceneWordSearch.Features.Level.BuilderLevelModel
 
                 foreach (var letter in currentWord)
                 {
-                    if(!comparingList.Contains(letter))
+                    if (!comparingList.Contains(letter))
                     {
                         charList.Add(letter);
                     }
